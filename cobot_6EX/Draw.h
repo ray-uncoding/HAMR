@@ -1,3 +1,5 @@
+//這個是繪圖的主檔案，他會調用路徑畫算法並規劃程式碼路徑
+
 #pragma once
 #include <iostream>
 #include <glad/glad.h>
@@ -11,7 +13,6 @@
 
 class Draw {
 public:
-	//Draw(Cylinder* cylinder_, GLuint* VAO_, GLuint* VBO_, GLuint* EBO, GLuint VBOline, GLuint VAOline);
 	Draw();
 	~Draw();
 	GLFWwindow* window;
@@ -47,7 +48,7 @@ private:
 	};
 	const unsigned int SCR_WIDTH = 800;
 	const unsigned int SCR_HEIGHT = 600;
-	// camera
+
 	glm::vec3 cameraPos = glm::vec3(0.0f, 0.5f, 3.0f);
 	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -74,13 +75,10 @@ private:
 	GLuint VBOline;
 	GLuint VAOline;
 	GLuint program;
-
-
 	GLuint compile_shader(const char* vertex, const char* fragment);
 	void bindVertex(Cylinder cylinder, GLuint VAO, GLuint VBO, GLuint EBO);
 	glm::mat4 rotation(float angle, Direction axis);
 	glm::mat4 translation(float distance, Direction axis);
 	void draw_cylinder(Cylinder cylinder, GLuint vertex);
 	void processInput(GLFWwindow* window);
-
 };

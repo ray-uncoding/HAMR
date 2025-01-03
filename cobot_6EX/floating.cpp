@@ -13,7 +13,6 @@
 #include <opencv2/opencv.hpp>
 
 //#include "Function.h"
-
 using namespace std;
 using namespace cv;
 using namespace ml;
@@ -414,18 +413,7 @@ float NewtonOptimize::FunctionXm(Mat CurrentPos1, Mat OriPos1, Mat CurrentPos2, 
 
 	return sum(m1 * PowPos1 + m2 * PowPos2 + m3 * PowPos3 + h_weight * PowCurrentStart + t_weight * PowCurrentEnd + w1 * PowBetween1 + w2 * PowBetween2)[0];
 }
-//float NewtonOptimize::FunctionXm(Mat CurrentPos1, Mat OriPos1, Mat CurrentPos2, Mat OriPos2, Mat CurrentPos3, Mat OriPos3, Mat StartPos, Mat EndPos) {
-//	float PowBetween1, PowBetween2, PowCurrentStart, PowCurrentEnd, PowPos1, PowPos2, PowPos3;
-//	PowPos1 = norm(CurrentPos1, OriPos1);
-//	PowPos2 = norm(CurrentPos2, OriPos2);
-//	PowPos3 = norm(CurrentPos3, OriPos3);
-//	PowCurrentStart = norm(CurrentPos1, StartPos);
-//	PowCurrentEnd = norm(CurrentPos3, EndPos);
-//	PowBetween1 = norm(CurrentPos1, CurrentPos2);
-//	PowBetween2 = norm(CurrentPos2, CurrentPos3);
-//
-//	return PowPos1 + PowPos2 + PowPos3 + h_weight * PowCurrentStart + t_weight * PowCurrentEnd + w1 * PowBetween1 + w2 * PowBetween2;
-//}
+
 
 //反覆使用來評估路徑規劃過程中的每個中繼點，並根據結果調整路徑
 float NewtonOptimize::FunctionXm(Mat CurrentPos, Mat OriPos, Mat StartPos, Mat EndPos) {
@@ -433,23 +421,10 @@ float NewtonOptimize::FunctionXm(Mat CurrentPos, Mat OriPos, Mat StartPos, Mat E
 	pow(norm(CurrentPos, OriPos), 2, PowCurrentOri);
 	pow(norm(CurrentPos, StartPos), 2, PowCurrentStart);
 	pow(norm(CurrentPos, EndPos), 2, PowCurrentEnd);
-	//PowCurrentOri = norm(CurrentPos, OriPos);
-	//PowCurrentStart = norm(CurrentPos, StartPos);
-	//PowCurrentEnd = norm(CurrentPos, EndPos);
-	//CenterPoint = (Mat_<float>(1, 6) << -8.0002, -46.662866, -25.617466, 0, -25.518116, 26.896169);
-	//CenterPoint = (Mat_<float>(1, 6) << 5.000, -38.860382, 18.78968, 0, -11.862453, -0.000113);
-	//pow(norm(CurrentPos, CenterPoint), 1, OLDMPFC);
-	//pow(norm(OriPos, CenterPoint), 1, NEWMPFC);
-	//double NewCurrentMPFCUP = (CurrentPos - CenterPoint).dot((OriPos - CenterPoint));
-	//double NewCurrentMPFCDN = OLDMPFC.dot(NEWMPFC);
-	//double NewCurrentMPFC = NewCurrentMPFCUP / NewCurrentMPFCDN;
 
-	//return  sum(f_weight * PowCurrentOri + h_weight * PowCurrentStart + t_weight * PowCurrentEnd + new_weight * NewCurrentMPFC)[0];
 	return  sum(f_weight * PowCurrentOri + h_weight * PowCurrentStart + t_weight * PowCurrentEnd)[0];
-	//return  f_weight * PowCurrentOri + h_weight * PowCurrentStart + t_weight * PowCurrentEnd;
-
 }
-//here  /////here  /////here  /////here  /////here  /////here  /////here  /////here  /////here  /////here  /////here  ///
+
 //對 CurrentPos 進行微小的變動，生成一個新的位置矩陣 Out，並將這些變動反映在機械手臂的第 i 和第 j 個關節上。
 Mat NewtonOptimize::PosDelta(Mat CurrentPos, int i, int j) {
 	Mat Out = CurrentPos.clone();
@@ -1826,6 +1801,3 @@ cv::Mat NewtonOptimize::pathcreate(cv::Mat start, cv::Mat end, int sampleRange) 
 	return path;
 
 }
-
-
-
